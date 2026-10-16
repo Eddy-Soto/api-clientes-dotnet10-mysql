@@ -2,7 +2,7 @@ using Clientes.Api.Contracts;
 using Clientes.Api.Data;
 using Clientes.Api.Models;
 using Microsoft.AspNetCore.Mvc;
-using MySql.Data.MySqlClient;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clientes.Api.Controllers;
@@ -58,7 +58,7 @@ public class ClientesController(ClientesDbContext db) : ControllerBase
 
     private ObjectResult Duplicate() => Problem(statusCode: 409, title: "Ya existe un cliente con ese CUI.");
     private static bool IsDuplicate(DbUpdateException ex) =>
-        ex.InnerException is MySqlException { Number: 1062 };
+    ex.InnerException is SqlException { Number: 2601 or 2627 };
 
     private static void Apply(ClienteRequest source, Cliente target)
     {

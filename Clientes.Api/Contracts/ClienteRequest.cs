@@ -6,16 +6,18 @@ public class ClienteRequest : IValidatableObject
 {
     [Required, RegularExpression(@"^[0-9]{13}$", ErrorMessage = "El CUI debe contener 13 dígitos.")]
     public string CUI { get; set; } = "";
-    [Required, StringLength(20)]
+    [Required, StringLength(15)]
     public string NIT { get; set; } = "";
-    [Required, StringLength(100)]
+    [Required, StringLength(60)]
     public string Nombres { get; set; } = "";
-    [Required, StringLength(100)]
-    public string Apellidos { get; set; } = "";
-    [Required, StringLength(250)]
-    public string Direccion { get; set; } = "";
-    [Required, StringLength(25), Phone]
-    public string Telefono { get; set; } = "";
+   [Required, StringLength(60)]
+public string Apellidos { get; set; } = "";
+
+[Required, StringLength(150)]
+public string Direccion { get; set; } = "";
+
+[Required, StringLength(12), Phone]
+public string Telefono { get; set; } = "";
     public DateOnly Fecha_Nacimiento { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

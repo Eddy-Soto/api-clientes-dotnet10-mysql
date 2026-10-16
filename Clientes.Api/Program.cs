@@ -8,8 +8,11 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddProblemDetails();
 builder.Services.AddDbContext<ClientesDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("Clientes")
-        ?? throw new InvalidOperationException("Falta ConnectionStrings:Clientes.")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("ConexionSQLAzure")
+        ?? throw new InvalidOperationException(
+            "Falta ConnectionStrings:ConexionSQLAzure."),
+        sqlOptions => sqlOptions.EnableRetryOnFailure()));
 var app = builder.Build();
 app.UseExceptionHandler();
 app.UseStatusCodePages();
